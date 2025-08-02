@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import AddAgent from './pages/AddAgent'
 import PrivateRoute from './components/PrivateRoute'
 import HomePage from './pages/HomePage'
+import AgentsList from './pages/AgentsList'
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             </PrivateRoute>
           }
           />
+          <Route path='/agents' element={<AgentsList/>} />
 
       </Routes>
     </Router>
