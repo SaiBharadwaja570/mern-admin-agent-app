@@ -2,15 +2,16 @@ const Agent = require('../models/Agent');
 const bcrypt = require('bcryptjs');
 const Task = require('../models/Task')
 
+// A function to add agents 
 exports.addAgent = async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
 
-    const existing = await Agent.findOne({ email });
+    const existing = await Agent.findOne({ email }); // Confirming whether agents already exist by fetching data 
     if (existing) return res.status(400).json({ message: 'Agent already exists' });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const agent = new Agent({ name, email, phone, password: hashedPassword });
+    const hashedPassword = await bcrypt.hash(password, 10); // Using bycryptjs to hash and protect the password
+    const agent = new Agent({ name, email, phone, password: hashedPassword }); // Creation of ne agents
     await agent.save();
 
     res.status(201).json({ message: 'Agent created successfully', agent });
@@ -22,7 +23,7 @@ exports.addAgent = async (req, res) => {
 
 exports.getAllAgents = async (req, res) => {
   try {
-    const agents = await Agent.find().select('-password');
+    const agents = await Agent.find().select('-password'); // Gets all the agents
     res.json(agents);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch agents' });

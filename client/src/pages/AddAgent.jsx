@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { User, Mail, Phone, Lock, Plus, CheckCircle, AlertCircle, ArrowLeft } from "lucide-react";
+import { addAgent } from "../services/agentService";
 
-const AddAgent = ({ onNavigate }) => {
+const AddAgent = ({ onNavigate }) => { // A form for adding agents to the database
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,8 +31,8 @@ const AddAgent = ({ onNavigate }) => {
     }
 
     try {
-      // Replace with your actual addAgent service call
-      // await addAgent(formData);
+      // addAgent service call
+      await addAgent(formData);
       
       // Mock API call for demonstration
       await new Promise(resolve => setTimeout(resolve, 1500));

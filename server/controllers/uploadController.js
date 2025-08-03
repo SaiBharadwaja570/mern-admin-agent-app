@@ -4,6 +4,7 @@ const xlsx = require('xlsx')
 const Agent = require('../models/Agent')
 const Task = require('../models/Task')
 
+// Handles file upload and task distribution among agents
 const uploadAndDistribute = async (req, res) => {
     try {
         if (!req.file) {
@@ -30,6 +31,7 @@ const uploadAndDistribute = async (req, res) => {
             return res.status(400).json({ message: 'No valid data found in the file' })
         }
 
+        // Normalize and filter tasks
         tasks = tasks.map(item => ({
             firstName: item.FirstName || item.firstName || item['First Name'] || '',
             phone: item.Phone || item.phone || item['Phone Number'] || '',
@@ -49,12 +51,13 @@ const uploadAndDistribute = async (req, res) => {
         const numAgents = agents.length;
         const distributed = Array.from({ length: numAgents }, () => []);
 
+        // Distribute tasks among agents
         tasks.forEach((task, index) => {
             const agentIndex = index % numAgents;
             distributed[agentIndex].push(task);
         });
 
-        // Save tasks to database
+        // Save tasks to database and prepare summary
         let totalTasksCreated = 0;
         const distributionSummary = [];
 
@@ -63,7 +66,6 @@ const uploadAndDistribute = async (req, res) => {
             const agentTasks = distributed[i];
             
             if (agentTasks.length > 0) {
-                // Create tasks for this agent
                 const createdTasks = await Task.insertMany(
                     agentTasks.map(task => ({
                         agentId: agent._id,
@@ -99,7 +101,7 @@ const uploadAndDistribute = async (req, res) => {
     }
 }
 
-// Helper function for parsing CSV
+// Helper function for parsing CSV buffer
 const parseCSV = (buffer) => {
     return new Promise((resolve, reject) => {
         const results = [];

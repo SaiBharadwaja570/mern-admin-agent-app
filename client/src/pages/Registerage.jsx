@@ -3,6 +3,8 @@ import { Eye, EyeOff, Mail, Lock, UserPlus, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+// A simple Register age for new users
+
 const RegisterPage = () => {
     const navigate = useNavigate()   
     const [formData, setFormData] = useState({

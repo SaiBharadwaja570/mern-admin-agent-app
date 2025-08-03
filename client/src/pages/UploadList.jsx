@@ -2,13 +2,16 @@ import { useState } from 'react';
 import { Upload, FileText, CheckCircle, XCircle, AlertCircle, X, ArrowLeft } from 'lucide-react';
 import axios from 'axios';
 
+// UploadList component for uploading CSV/Excel files
 const UploadList = ({ onNavigate }) => {
+  // State for file, message, message type, uploading status, drag status
   const [file, setFile] = useState(null);
   const [msg, setMsg] = useState('');
   const [msgType, setMsgType] = useState(''); 
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
+  // Handle file selection and validation
   const handleFileChange = (selectedFile) => {
     if (selectedFile) {
       const allowedTypes = [
@@ -16,7 +19,7 @@ const UploadList = ({ onNavigate }) => {
         'application/vnd.ms-excel',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       ];
-      
+      // Check file type and extension
       if (allowedTypes.includes(selectedFile.type) || selectedFile.name.match(/\.(csv|xls|xlsx)$/i)) {
         setFile(selectedFile);
         setMsg('');
@@ -29,6 +32,7 @@ const UploadList = ({ onNavigate }) => {
     }
   };
 
+  // Handle file upload to backend
   const handleUpload = async () => {
     if (!file) {
       setMsg('Please select a file.');
@@ -41,7 +45,6 @@ const UploadList = ({ onNavigate }) => {
     formData.append('file', file);
 
     try {
-      // Replace with your actual axios call
       const token = localStorage.getItem('token');
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/upload/upload`, formData, {
         headers: {
@@ -49,8 +52,7 @@ const UploadList = ({ onNavigate }) => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      
-      // Mock successful upload for demonstration
+      // Simulate upload delay
       await new Promise(resolve => setTimeout(resolve, 2000));
       setMsg('File uploaded successfully! Data has been processed and tasks assigned.');
       setMsgType('success');
@@ -63,6 +65,7 @@ const UploadList = ({ onNavigate }) => {
     }
   };
 
+  // Handle drag events for drag-and-drop upload
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -73,22 +76,24 @@ const UploadList = ({ onNavigate }) => {
     }
   };
 
+  // Handle file drop event
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFileChange(e.dataTransfer.files[0]);
     }
   };
 
+  // Remove selected file
   const removeFile = () => {
     setFile(null);
     setMsg('');
     setMsgType('');
   };
 
+  // Get icon for message type
   const getMessageIcon = () => {
     switch (msgType) {
       case 'success':
@@ -102,6 +107,7 @@ const UploadList = ({ onNavigate }) => {
     }
   };
 
+  // Get color classes for message type
   const getMessageColor = () => {
     switch (msgType) {
       case 'success':
@@ -115,6 +121,7 @@ const UploadList = ({ onNavigate }) => {
     }
   };
 
+  // Format file size for display
   const formatFileSize = (bytes) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -127,6 +134,7 @@ const UploadList = ({ onNavigate }) => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-6">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
+          {/* Back button */}
           <button
             onClick={() => onNavigate ? onNavigate('/dashboard') : window.location.href = '/dashboard'}
             className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors mb-6"
@@ -158,6 +166,7 @@ const UploadList = ({ onNavigate }) => {
             >
               {!file ? (
                 <>
+                  {/* Upload icon and instructions */}
                   <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Upload className="w-8 h-8 text-blue-600" />
                   </div>
@@ -167,6 +176,7 @@ const UploadList = ({ onNavigate }) => {
                   <p className="text-gray-600 mb-6">
                     Drag and drop your CSV or Excel file here, or click to browse
                   </p>
+                  {/* Hidden file input */}
                   <input
                     type="file"
                     accept=".csv,.xls,.xlsx"
@@ -186,6 +196,7 @@ const UploadList = ({ onNavigate }) => {
                   </p>
                 </>
               ) : (
+                // Show selected file info
                 <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-200">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
@@ -196,6 +207,7 @@ const UploadList = ({ onNavigate }) => {
                       <p className="text-sm text-gray-600">{formatFileSize(file.size)}</p>
                     </div>
                   </div>
+                  {/* Remove file button */}
                   <button
                     onClick={removeFile}
                     className="p-2 hover:bg-gray-100 rounded-lg transition-colors"

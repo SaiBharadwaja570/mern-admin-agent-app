@@ -2,7 +2,11 @@ import React from 'react';
 import { UserPlus, Users, Upload, FolderOpen, LogOut, User } from 'lucide-react';
 import axiosInstance from '../utils/axiosInstance';
 
+// Page which will open after login
+// User can perform navigation
+
 const Dashboard = ({ onNavigate, onLogout }) => {
+
   const dashboardItems = [
     {
       title: "Add Agent",

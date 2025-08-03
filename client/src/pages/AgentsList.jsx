@@ -4,31 +4,16 @@ import axios from '../utils/axiosInstance';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+// A page for listing all the agents and their respective tasks
+
 const AgentsList = () => {
   const [agents, setAgents] = useState([]);
   const navigate = useNavigate();
 
-  const BasicNavbarExample = () => {
-  const basicLinks = [
-    { label: "Dashboard", href: "/dashboard"},
-    { label: "Add Agents", href: "/add-agent" },
-    { label: "Upload Files", href: "/upload-list" },
-    { label: "Uploaded Files", href: "/uploaded-lists" }
-  ];
-
-  return (
-    <Navbar
-      brand="MyCompany"
-      links={basicLinks}
-      variant="default"
-    />
-  );
-};
-
   useEffect(() => {
     const fetchAgents = async () => {
       try {
-        const res = await axios.get('/agents/with-tasks');
+        const res = await axios.get('/agents/with-tasks'); // api for fetching agents who have been assigned tasks
         setAgents(res.data);
       } catch (error) {
         console.error('Error fetching agents:', error);

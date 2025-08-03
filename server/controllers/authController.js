@@ -11,12 +11,15 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
+    // Checking is email already exists
     const admin = await Admin.findOne({ email: email.trim().toLowerCase() });
     if (!admin) return res.status(401).json({ message: 'Invalid credentials' });
 
+    // Using bcryptjs for comparing and authenticatin the user
     const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
 
+    // Creating token using jwt.sign for Authorization
     const token = jwt.sign(
       { id: admin._id, email: admin.email }, 
       process.env.JWT_SECRET, 

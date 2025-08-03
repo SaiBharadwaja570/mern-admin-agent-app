@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../utils/axiosInstance'; 
+import axiosInstance from '../utils/axiosInstance';
+
+// Login form
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -19,15 +21,17 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await axios.post('/auth/login', {
+      const response = await axiosInstance.post('/auth/login', { // api call for verifying the credententials
         email: form.email.trim(),
         password: form.password,
       });
 
       const { token, user } = response.data;
 
+      // Tasks which will be performed after Login form is submitted
+
       // ✅ Save token + user
-      localStorage.setItem('authToken', token);
+      localStorage.setItem('authToken', token); // for authorization
       localStorage.setItem('user', JSON.stringify(user));
 
       // ✅ Redirect to dashboard/home
