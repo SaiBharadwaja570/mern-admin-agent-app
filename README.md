@@ -26,26 +26,6 @@ A full-stack application for admin login, agent creation & management, uploading
 5. Clean, readable code with comments
 6. `.env` file for configuration
 
-## 🗂️ Project Structure
-
-```
-mern-admin-agent-app/
-├── backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── config/
-│   ├── server.js
-├── frontend/
-│   ├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── index.css
-```
-
 ## 📝 Environment Variables
 
 Create a `.env` file in backend root with:
@@ -75,13 +55,6 @@ npm run dev
 ```
 
 The app will run on `http://localhost:3000` (frontend) and `http://localhost:5000` (backend).
-
-## 💡 Additional Info
-
-* All agent & task operations require admin authentication.
-* API routes are protected with JWT middleware.
-* Task assignment links uploaded lists to agents.
-* Tailwind CSS is fully integrated for styling.
 
 ## 📋 Run Application
 
