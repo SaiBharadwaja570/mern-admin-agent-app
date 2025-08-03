@@ -7,6 +7,8 @@ import AddAgent from './pages/AddAgent'
 import PrivateRoute from './components/PrivateRoute'
 import HomePage from './pages/HomePage'
 import AgentsList from './pages/AgentsList'
+import UploadList from './pages/UploadList'
+import UploadedLists from './pages/UploadedLists'
 
 const App = () => {
   return (
@@ -32,6 +34,8 @@ const App = () => {
           }
           />
           <Route path='/agents' element={<AgentsList/>} />
+          <Route path='/upload-list' element={<UploadList/>} />
+          <Route path='/uploaded-lists' element={<UploadedLists/>} />
 
       </Routes>
     </Router>

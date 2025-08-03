@@ -12,7 +12,7 @@ const taskSchema = new mongoose.Schema({
   notes: { 
     type: String 
 },
-  assignedTo: { 
+  agentId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Agent' 
 }

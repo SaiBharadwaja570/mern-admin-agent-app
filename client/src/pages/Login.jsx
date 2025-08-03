@@ -1,12 +1,12 @@
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-import axios from '../utils/axiosInstance'; // 👈 Use pre-configured axios instance
+import { useNavigate } from 'react-router-dom';
+import axios from '../utils/axiosInstance'; 
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,7 +31,7 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(user));
 
       // ✅ Redirect to dashboard/home
-      // navigate('/dashboard');
+      navigate('/dashboard');
 
     } catch (error) {
       const errorMessage =

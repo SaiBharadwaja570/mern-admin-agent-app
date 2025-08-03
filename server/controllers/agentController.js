@@ -27,3 +27,24 @@ exports.getAllAgents = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch agents' });
   }
 };
+
+exports.getAllAgentsWithTasks = async (req, res) => {
+  try {
+    const agents = await Agent.find(); // Get all agents
+
+    // Get tasks for each agent
+    const agentsWithTasks = await Promise.all(
+      agents.map(async (agent) => {
+        const tasks = await Task.find({ assignedTo: agent._id });
+        return {
+          ...agent._doc,
+          tasks,
+        };
+      })
+    );
+
+    res.json(agentsWithTasks);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch agents and tasks" });
+  }
+};
