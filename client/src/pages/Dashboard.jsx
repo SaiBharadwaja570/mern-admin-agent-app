@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserPlus, Users, Upload, FolderOpen, LogOut, User } from 'lucide-react';
+import axiosInstance from '../utils/axiosInstance';
 
 const Dashboard = ({ onNavigate, onLogout }) => {
   const dashboardItems = [
@@ -38,8 +39,9 @@ const Dashboard = ({ onNavigate, onLogout }) => {
     if (onLogout) {
       onLogout();
     } else {
-      // Fallback logout logic
+      // logout logic
       localStorage.removeItem('token');
+      delete axiosInstance.defaults.headers.common['Authorization'];
       window.location.href = '/login';
     }
   };
