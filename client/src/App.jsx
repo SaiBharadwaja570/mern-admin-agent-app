@@ -2,13 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
-import Register from './pages/Register'
 import AddAgent from './pages/AddAgent'
 import PrivateRoute from './components/PrivateRoute'
 import HomePage from './pages/HomePage'
 import AgentsList from './pages/AgentsList'
 import UploadList from './pages/UploadList'
-import UploadedLists from './pages/UploadedLists'
 
 const App = () => {
   return (
@@ -16,7 +14,6 @@ const App = () => {
       <Routes>
           <Route path='/' element={<HomePage/>} />
           <Route path='/login' element={<Login/>} />
-          <Route path="/register" element={<Register />} />
           <Route
           path="/dashboard"
           element={
@@ -35,7 +32,6 @@ const App = () => {
           />
           <Route path='/agents' element={<AgentsList/>} />
           <Route path='/upload-list' element={<UploadList/>} />
-          <Route path='/uploaded-lists' element={<UploadedLists/>} />
 
       </Routes>
     </Router>

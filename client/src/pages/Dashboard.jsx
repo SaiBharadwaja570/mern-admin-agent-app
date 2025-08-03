@@ -1,3 +1,4 @@
+// src/pages/Dashboard.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserPlus, Users, Upload, FolderOpen } from 'lucide-react';
@@ -10,28 +11,28 @@ const Dashboard = () => {
       title: "Add Agent",
       description: "Create a new agent account",
       icon: UserPlus,
-      path: "/add-agent",
+      path: '/add-agent',
       color: "from-blue-500 to-blue-600"
     },
     {
       title: "View Agents",
-      description: "List of all agents",
+      description: "List of all agents and their tasks",
       icon: Users,
-      path: "/agents",
+      path: '/agents',
       color: "from-green-500 to-green-600"
     },
     {
       title: "Upload List",
       description: "Upload tasks or data for agents",
       icon: Upload,
-      path: "/upload-list",
+      path: '/upload-list',
       color: "from-purple-500 to-purple-600"
     },
     {
       title: "View Uploaded Lists",
       description: "Access uploaded content",
       icon: FolderOpen,
-      path: "/uploaded-lists",
+      path: '/uploaded-lists',
       color: "from-orange-500 to-orange-600"
     }
   ];

@@ -1,5 +1,6 @@
 const Agent = require('../models/Agent');
 const bcrypt = require('bcryptjs');
+const Task = require('../models/Task')
 
 exports.addAgent = async (req, res) => {
   try {
@@ -35,7 +36,7 @@ exports.getAllAgentsWithTasks = async (req, res) => {
     // Get tasks for each agent
     const agentsWithTasks = await Promise.all(
       agents.map(async (agent) => {
-        const tasks = await Task.find({ assignedTo: agent._id });
+        const tasks = await Task.find({ agentId: agent._id });
         return {
           ...agent._doc,
           tasks,
@@ -45,6 +46,7 @@ exports.getAllAgentsWithTasks = async (req, res) => {
 
     res.json(agentsWithTasks);
   } catch (err) {
+    console.error("Error fetching agents and tasks:", err);
     res.status(500).json({ error: "Failed to fetch agents and tasks" });
   }
 };
