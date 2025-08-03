@@ -6,6 +6,9 @@ const HomePage = () => {
   const handleLoginClick = () => {
     navigate('/login');
   };
+  const handleRegisterClick = () => {
+    navigate('/register');
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -32,6 +35,12 @@ const HomePage = () => {
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 transform hover:scale-105"
               >
                 Login
+              </button>
+              <button 
+                onClick={handleRegisterClick}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 transform hover:scale-105"
+              >
+                Register
               </button>
             </div>
           </div>

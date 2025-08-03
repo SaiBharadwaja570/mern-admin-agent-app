@@ -7,6 +7,7 @@ import PrivateRoute from './components/PrivateRoute'
 import HomePage from './pages/HomePage'
 import AgentsList from './pages/AgentsList'
 import UploadList from './pages/UploadList'
+import RegisterPage from './pages/Registerage'
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           />
           <Route path='/agents' element={<AgentsList/>} />
           <Route path='/upload-list' element={<UploadList/>} />
+          <Route path='/register' element={<RegisterPage/>} />
 
       </Routes>
     </Router>

@@ -36,3 +36,20 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.registerAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const existing = await Admin.findOne({ email });
+    if (existing) return res.status(400).json({ message: 'Admin already exists' });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newAdmin = new Admin({ email, password: hashedPassword });
+    await newAdmin.save();
+
+    res.status(201).json({ message: 'Admin registered successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
