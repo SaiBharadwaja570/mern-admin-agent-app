@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage'
 import AgentsList from './pages/AgentsList'
 import UploadList from './pages/UploadList'
 import RegisterPage from './pages/Registerage'
+import AgentsPage from './pages/AgentsPage'
 
 const App = () => {
   return (
@@ -31,7 +32,8 @@ const App = () => {
             </PrivateRoute>
           }
           />
-          <Route path='/agents' element={<AgentsList/>} />
+          <Route path='/agents-with-tasks' element={<AgentsList/>} />
+          <Route path='/agents' element={<AgentsPage />} />
           <Route path='/upload-list' element={<UploadList/>} />
           <Route path='/register' element={<RegisterPage/>} />
 

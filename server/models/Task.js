@@ -15,6 +15,11 @@ const taskSchema = new mongoose.Schema({
   agentId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Agent' 
+},
+adminId: { 
+  type: mongoose.Schema.Types.ObjectId, 
+  ref: 'Admin', 
+  required: true 
 }
 
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserPlus, Users, Upload, FolderOpen, LogOut, User } from 'lucide-react';
+import { UserPlus, Users, Upload, ClipboardList, LogOut, User } from 'lucide-react';
 import axiosInstance from '../utils/axiosInstance';
 
 // Page which will open after login
@@ -17,10 +17,17 @@ const Dashboard = ({ onNavigate, onLogout }) => {
     },
     {
       title: "View Agents",
-      description: "List of all agents and their tasks",
+      description: "List of all agents (without tasks)",
       icon: Users,
       path: '/agents',
       color: "from-green-500 to-green-600"
+    },
+    {
+      title: "Agents & Tasks",
+      description: "View all agents with their assigned tasks",
+      icon: ClipboardList,
+      path: '/agents-with-tasks',
+      color: "from-orange-500 to-orange-600"
     },
     {
       title: "Upload List",

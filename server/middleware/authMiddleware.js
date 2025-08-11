@@ -9,6 +9,7 @@ const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.adminId = decoded.id;
     req.admin = decoded; 
     next();
   } catch (err) {

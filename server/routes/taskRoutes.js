@@ -1,16 +1,8 @@
-const express = require('express')
-const Task = require('../models/Task.js')
+const express = require('express');
+const router = express.Router();
+const { getTasksByAdmin } = require('../controllers/taskController');
+const authMiddleware = require('../middleware/authMiddleware');
 
-const router = express.Router()
+router.get('/', authMiddleware, getTasksByAdmin);
 
-
-router.get('/agents/:id', async (req, res) => {
-    try {
-        const tasks = await Task.find({ assignedTo: req.params.id })
-        return res.json( tasks )
-    } catch (err) {
-        res.status(500).json({ error: "Failed to fetch tasks" });
-    }
-})
-
-module.exports = router
+module.exports = router;

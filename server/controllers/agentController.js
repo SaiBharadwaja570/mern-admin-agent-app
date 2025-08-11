@@ -7,11 +7,11 @@ exports.addAgent = async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
 
-    const existing = await Agent.findOne({ email }); // Confirming whether agents already exist by fetching data 
+    const existing = await Agent.findOne({ email, adminId: req.adminId }); // Confirming whether agents already exist by fetching data 
     if (existing) return res.status(400).json({ message: 'Agent already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10); // Using bycryptjs to hash and protect the password
-    const agent = new Agent({ name, email, phone, password: hashedPassword }); // Creation of ne agents
+    const agent = new Agent({ name, email, phone, password: hashedPassword, adminId: req.adminId }); // Creation of new agents
     await agent.save();
 
     res.status(201).json({ message: 'Agent created successfully', agent });
@@ -23,7 +23,7 @@ exports.addAgent = async (req, res) => {
 
 exports.getAllAgents = async (req, res) => {
   try {
-    const agents = await Agent.find().select('-password'); // Gets all the agents
+    const agents = await Agent.find({ adminId: req.adminId }).select('-password'); // Gets all the agents
     res.json(agents);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch agents' });
@@ -32,12 +32,12 @@ exports.getAllAgents = async (req, res) => {
 
 exports.getAllAgentsWithTasks = async (req, res) => {
   try {
-    const agents = await Agent.find(); // Get all agents
+    const agents = await Agent.find({ adminId: req.adminId }); // Get all agents
 
     // Get tasks for each agent
     const agentsWithTasks = await Promise.all(
       agents.map(async (agent) => {
-        const tasks = await Task.find({ agentId: agent._id });
+        const tasks = await Task.find({ agentId: agent._id, adminId: req.adminId });
         return {
           ...agent._doc,
           tasks,
